@@ -44,8 +44,8 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-    dbContext.Database.EnsureCreated();
-    dbContext.Seed();
+    dbContext.Database.Migrate();
+    SeedData.Seed(dbContext);
 }
 
 app.Run();
