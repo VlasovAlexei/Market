@@ -25,7 +25,7 @@ namespace WebApp.Controllers
 
         public async Task<IActionResult> Product()
         {
-            var productClient = new swaggerClient("https://localhost:7225/", new HttpClient());
+            var productClient = new ProductAPI("https://localhost:7225/", new HttpClient());
 
             var result = await productClient.GetProductsAsync();
 
