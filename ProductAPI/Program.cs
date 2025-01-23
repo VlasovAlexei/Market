@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using ProductAPI;
 using ProductAPI.Data;
 using ProductAPI.Repository;
 
@@ -17,6 +18,8 @@ builder.Services.AddSwaggerGen(c =>
         Title = "ProductAPI",
         Version = "v1"
     });
+
+    c.SchemaFilter<EnumSchemaFilter>();
 });
 
 builder.Services.AddDbContext<ProductDbContext>(options =>

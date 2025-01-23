@@ -240,10 +240,10 @@
       },
       "ProductType": {
         "enum": [
-          0,
-          1,
-          2,
-          3
+          "CPU",
+          "MONITOR",
+          "PERIPHARALS",
+          "EXTERNAL"
         ],
         "type": "integer",
         "format": "int32"
