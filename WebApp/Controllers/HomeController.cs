@@ -23,6 +23,15 @@ namespace WebApp.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Product()
+        {
+            var productClient = new ProductAPI("https://localhost:7225/", new HttpClient());
+
+            var result = await productClient.GetProductsAsync();
+
+            return View(result);
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
