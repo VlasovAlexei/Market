@@ -4,7 +4,7 @@
     {
         private readonly ProductAPI _productApiClient;
 
-        public ProductUtil() => _productApiClient = new ProductAPI("https://localhost:7225/", new HttpClient());
+        public ProductUtil() => _productApiClient = new ProductAPI("http://productapi:8001", new HttpClient());
 
         public async Task<Product> CreateProduct(Product product)
         {
