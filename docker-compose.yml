@@ -1,0 +1,30 @@
+version: '3.4'
+services:
+  product_api:
+    image: product_api
+    container_name: productapi
+    build:
+      context: .
+      dockerfile: ProductAPI/Dockerfile
+    restart: on-failure      
+    ports:
+      - 5000:8001
+    networks:
+      - product_network
+
+  webapp:
+    image: webapp
+    container_name: webapp
+    build:
+      context: .
+      dockerfile: WebApp/Dockerfile
+    restart: on-failure      
+    ports:
+      - 5001:8000
+    depends_on: 
+      - product_api
+    networks: 
+      - product_network
+
+networks: 
+   product_network:
