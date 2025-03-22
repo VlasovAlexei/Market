@@ -6,19 +6,19 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
-COPY ["ProductAPI/ProductAPI.csproj", "ProductAPI/"]
-RUN dotnet restore "ProductAPI/ProductAPI.csproj"
+COPY ["App/WebApp/WebApp.csproj", "App/WebApp/"]
+RUN dotnet restore "App/WebApp/WebApp.csproj"
 COPY . .
-WORKDIR "/src/ProductAPI"
-RUN dotnet build "ProductAPI.csproj" -c Release -o /app/build
+WORKDIR "/src/App/WebApp"
+RUN dotnet build "WebApp.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "ProductAPI.csproj" -c Release -o /app/publish
+RUN dotnet publish "WebApp.csproj" -c Release -o /app/publish
 
 FROM base AS final
 ENV ASPNETCORE_ENVIRONMENT=Development
-ENV ASPNETCORE_URLS=http://*:8001
-EXPOSE 8001
+ENV ASPNETCORE_URLS=http://*:8000
+EXPOSE 8000
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "ProductAPI.dll"]
+ENTRYPOINT ["dotnet", "WebApp.dll"]
