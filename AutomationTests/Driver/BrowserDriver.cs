@@ -7,7 +7,7 @@ using OpenQA.Selenium.Edge;
 
 namespace AutomationTests.Driver
 {
-    public class BrowserDriver
+    public class BrowserDriver : IBrowserDriver
     {
         public IWebDriver GetChromeDriver()
         {

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationTests.Driver;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 
 namespace AutomationTests
@@ -7,9 +8,8 @@ namespace AutomationTests
     {
         IWebDriver driver;
 
-        public UnitTest1()
+        public UnitTest1(IDriverFixture driverFixture)
         {
-            var driverFixture = new DriverFixture(BrowserType.Chrome);
             driver = driverFixture.Driver;
             driver.Navigate().GoToUrl(new Uri("http://localhost:5001/"));
         }
