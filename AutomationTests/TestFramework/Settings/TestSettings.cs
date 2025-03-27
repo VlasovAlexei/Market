@@ -1,4 +1,4 @@
-﻿namespace AutomationTests.Settings
+﻿namespace TestFramework.Settings
 {
     public class TestSettings
     {

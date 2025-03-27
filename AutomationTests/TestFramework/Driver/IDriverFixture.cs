@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 
-namespace AutomationTests.Driver;
+namespace TestFramework.Driver;
 
 public interface IDriverFixture
 {

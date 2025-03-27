@@ -1,7 +1,7 @@
-﻿using AutomationTests.Settings;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
+using TestFramework.Settings;
 
-namespace AutomationTests.Driver
+namespace TestFramework.Driver
 {
     public class DriverFixture : IDriverFixture
     {

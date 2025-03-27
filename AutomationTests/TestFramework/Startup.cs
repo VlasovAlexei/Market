@@ -1,7 +1,7 @@
-﻿using AutomationTests.Driver;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
+using TestFramework.Driver;
 
-namespace AutomationTests
+namespace TestFramework
 {
     public class Startup
     {

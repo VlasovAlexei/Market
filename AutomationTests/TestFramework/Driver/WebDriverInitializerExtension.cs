@@ -1,16 +1,16 @@
-﻿using AutomationTests.Settings;
+﻿using TestFramework.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace AutomationTests.Driver;
+namespace TestFramework.Driver;
 
 public static class WebDriverInitializerExtension
 {
     public static IServiceCollection UseWebDriverInitializer(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         BrowserType browserType)
     {
         services.AddSingleton(new TestSettings
-        { 
+        {
             BrowserType = browserType
         });
 

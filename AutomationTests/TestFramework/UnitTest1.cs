@@ -1,8 +1,8 @@
-﻿using AutomationTests.Driver;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using TestFramework.Driver;
 
-namespace AutomationTests
+namespace TestFramework
 {
     public class UnitTest1 : IDisposable
     {
