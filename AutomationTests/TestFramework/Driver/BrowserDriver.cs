@@ -5,9 +5,9 @@ using WebDriverManager;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Edge;
 
-namespace AutomationTests.Driver
+namespace TestFramework.Driver
 {
-    public class BrowserDriver
+    public class BrowserDriver : IBrowserDriver
     {
         public IWebDriver GetChromeDriver()
         {
@@ -30,7 +30,7 @@ namespace AutomationTests.Driver
 }
 
 public enum BrowserType
-{ 
+{
     Chrome,
     Firefox,
     Edge
