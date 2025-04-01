@@ -1,7 +1,7 @@
 ﻿using TestFramework.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace TestFramework.Driver;
+namespace TestFramework.Extensions;
 
 public static class WebDriverInitializerExtension
 {
