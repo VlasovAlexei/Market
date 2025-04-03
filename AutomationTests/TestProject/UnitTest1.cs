@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using AutoFixture.Xunit2;
+using OpenQA.Selenium;
 using ProductAPI.Data;
 using TestFramework.Driver;
 using TestProject.Pages;
@@ -24,18 +25,12 @@ namespace TestProject
             driver.Quit();
         }
 
-        [Fact]
-        public void Test1()
+        [Theory, AutoData]
+        public void Test1(Product product)
         {
             homePage.CreateProduct();
 
-            createProductPage.EnterProductDetails(new Product
-            {
-                Name = "AutoProduct",
-                Description = "AutoDescription",
-                Price = 444,
-                ProductType = ProductType.PERIPHARALS
-            });
+            createProductPage.EnterProductDetails(product);
         }
     }
 }
