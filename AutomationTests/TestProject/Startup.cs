@@ -10,12 +10,7 @@ namespace TestProject
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            var config = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json").Build();
-
-            var browserType = config.GetSection("BrowserType").Value;
-
-            services.UseWebDriverInitializer(Enum.Parse<BrowserType>(browserType));
+            services.UseWebDriverInitializer();
             services.AddScoped<IHomePage, HomePage>();
             services.AddScoped<ICreateProductPage, CreateProductPage>();
             services.AddScoped<IDriverFixture, DriverFixture>();

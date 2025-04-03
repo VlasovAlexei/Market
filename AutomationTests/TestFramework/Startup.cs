@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TestFramework.Driver;
-using TestFramework.Extensions;
 
 namespace TestFramework
 {
@@ -8,7 +7,6 @@ namespace TestFramework
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.UseWebDriverInitializer(BrowserType.Chrome);
             services.AddScoped<IDriverFixture, DriverFixture>();
             services.AddScoped<IBrowserDriver, BrowserDriver>();
         }
