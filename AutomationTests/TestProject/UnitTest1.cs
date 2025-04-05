@@ -23,5 +23,15 @@ namespace TestProject
 
             createProductPage.EnterProductDetails(product);
         }
+
+        [Theory, AutoData]
+        public void Test2(Product product)
+        {
+            homePage.CreateProduct();
+
+            createProductPage.EnterProductDetails(product);
+
+            homePage.PerformClickOnSpecialValue(product.Name, "Details");
+        }
     }
 }
