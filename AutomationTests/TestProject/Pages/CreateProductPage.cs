@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using ProductAPI.Data;
 using TestFramework.Driver;
+using TestFramework.Extensions;
 
 namespace TestProject.Pages
 {
@@ -24,11 +24,10 @@ namespace TestProject.Pages
 
         public void EnterProductDetails(Product product)
         {
-            txtName.SendKeys(product.Name);
-            txtDescription.SendKeys(product.Description);
-            txtPrice.SendKeys(product.Price.ToString());
-            var select = new SelectElement(ddlProductType);
-            select.SelectByText(product.ProductType.ToString());
+            txtName.ClearAndEnterText(product.Name);
+            txtDescription.ClearAndEnterText(product.Description);
+            txtPrice.ClearAndEnterText(product.Price.ToString());
+            ddlProductType.SelectDropDownByText(product.ProductType.ToString());
             btnCreate.Click();
         }
     }

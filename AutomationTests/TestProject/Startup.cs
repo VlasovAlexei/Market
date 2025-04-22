@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using TestFramework.Driver;
+using TestFramework.Extensions;
 using TestProject.Pages;
 
 namespace TestProject
@@ -8,7 +10,7 @@ namespace TestProject
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.UseWebDriverInitializer(BrowserType.Chrome);
+            services.UseWebDriverInitializer();
             services.AddScoped<IHomePage, HomePage>();
             services.AddScoped<ICreateProductPage, CreateProductPage>();
             services.AddScoped<IDriverFixture, DriverFixture>();
