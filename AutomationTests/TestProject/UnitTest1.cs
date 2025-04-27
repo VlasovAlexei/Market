@@ -1,4 +1,5 @@
 ﻿using AutoFixture.Xunit2;
+using FluentAssertions;
 using ProductAPI.Data;
 using TestProject.Pages;
 
@@ -7,13 +8,13 @@ namespace TestProject
     public class UnitTest1
     {
         private readonly IHomePage homePage;
-        private readonly ICreateProductPage createProductPage;
+        private readonly IProductPage productPage;
 
-        public UnitTest1(IHomePage homePage, ICreateProductPage createProductPage)
+        public UnitTest1(IHomePage homePage, IProductPage createProductPage)
         {
 
             this.homePage = homePage;
-            this.createProductPage = createProductPage;
+            this.productPage = createProductPage;
         }
 
         [Theory, AutoData]
@@ -21,7 +22,7 @@ namespace TestProject
         {
             homePage.CreateProduct();
 
-            createProductPage.EnterProductDetails(product);
+            productPage.EnterProductDetails(product);
         }
 
         [Theory, AutoData]
@@ -29,9 +30,15 @@ namespace TestProject
         {
             homePage.CreateProduct();
 
-            createProductPage.EnterProductDetails(product);
+            productPage.EnterProductDetails(product);
 
             homePage.PerformClickOnSpecialValue(product.Name, "Details");
+
+            var actualProduct = productPage.GetProductDetails();
+
+            actualProduct
+                .Should()
+                .BeEquivalentTo(product, option => option.Excluding(x => x.Id));
         }
     }
 }

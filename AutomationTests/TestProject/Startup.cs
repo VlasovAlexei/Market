@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using TestFramework.Driver;
 using TestFramework.Extensions;
 using TestProject.Pages;
@@ -12,7 +11,7 @@ namespace TestProject
         {
             services.UseWebDriverInitializer();
             services.AddScoped<IHomePage, HomePage>();
-            services.AddScoped<ICreateProductPage, CreateProductPage>();
+            services.AddScoped<IProductPage, ProductPage>();
             services.AddScoped<IDriverFixture, DriverFixture>();
             services.AddScoped<IBrowserDriver, BrowserDriver>();
         }
