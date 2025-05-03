@@ -25,6 +25,7 @@
   </ItemGroup>
 	
 <ItemGroup>
+    <ProjectReference Include="..\..\App\ProductAPI\ProductAPI.csproj" />
     <ProjectReference Include="..\TestFramework\TestFramework.csproj" />
   </ItemGroup>
 	
