@@ -9,6 +9,8 @@ services:
     restart: on-failure      
     ports:
       - 5000:8001
+    depends_on:
+      - db
     networks:
       - product_network
 
@@ -24,6 +26,18 @@ services:
     depends_on: 
       - product_api
     networks: 
+      - product_network
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      SA_PASSWORD: "Password%1#29"
+      ACCEPT_EULA: "Y"
+    container_name: sqlserver
+    hostname: sqlserver
+    ports:
+      - "1433:1433"
+    networks:
       - product_network
 
 networks: 

@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
@@ -46,9 +46,7 @@ app.MapControllers();
 
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
-    dbContext.Database.Migrate();
-    SeedData.Seed(dbContext);
+    scope.ServiceProvider.GetRequiredService<ProductDbContext>().Database.Migrate();
 }
 
 app.Run();
