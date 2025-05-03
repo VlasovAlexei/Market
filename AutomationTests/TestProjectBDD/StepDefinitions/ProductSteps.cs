@@ -1,3 +1,5 @@
+using ProductAPI.Repository;
+
 namespace TestProjectBDD.StepDefinitions;
 
 [Binding]
@@ -9,11 +11,15 @@ public sealed class ProductSteps
 
     private readonly IProductPage productPage;
 
-    public ProductSteps(ScenarioContext scenarioContext, IHomePage homePage, IProductPage productPage) 
+    private readonly IProductRepository productRepository;
+
+    public ProductSteps(ScenarioContext scenarioContext, IHomePage homePage, IProductPage productPage,
+        IProductRepository productRepository) 
     {
         this.scenarioContext = scenarioContext;
         this.homePage = homePage;
         this.productPage = productPage;
+        this.productRepository = productRepository;
     }
 
     [Given("I click the Product menu")]
