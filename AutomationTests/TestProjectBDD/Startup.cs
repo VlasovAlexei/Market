@@ -1,5 +1,10 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+
 using Reqnroll.Microsoft.Extensions.DependencyInjection;
+
+using ProductAPI.Repository;
 
 namespace TestProjectBDD;
 
@@ -10,12 +15,23 @@ public static class Startup
     {
         var services = new ServiceCollection();
 
+        string projectPath = AppDomain.CurrentDomain.BaseDirectory.Split(new String[] { @"bin\" }, StringSplitOptions.None)[0];
+
+        IConfigurationRoot configuration = new ConfigurationBuilder()
+            .SetBasePath(projectPath)
+            .AddJsonFile("appsettings.json")
+            .Build();
+
+        string connectionString = configuration.GetConnectionString("DefaultConnection");
+
+        services.AddDbContext<ProductDbContext>(options => options.UseSqlServer(connectionString));
+        services.AddTransient<IProductRepository, ProductRepository>();
         services.UseWebDriverInitializer();
         services.AddScoped<IHomePage, HomePage>();
         services.AddScoped<IProductPage, ProductPage>();
         services.AddScoped<IDriverFixture, DriverFixture>();
         services.AddScoped<IBrowserDriver, BrowserDriver>();
-
+        
         return services;
     }
 }
