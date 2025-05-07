@@ -135,7 +135,10 @@ await testRunner.WhenAsync("I create product with following details", ((string)(
 await testRunner.WhenAsync("I click the details link of the newly created product", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
 #line 12
- await testRunner.ThenAsync("I see all the product details are created as expected", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+await testRunner.ThenAsync("I see all the product details are created as expected", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 13
+await testRunner.WhenAsync("I delete product Headphones for cleanup", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();
