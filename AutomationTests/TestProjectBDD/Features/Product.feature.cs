@@ -82,6 +82,30 @@ namespace TestProjectBDD.Features
             await testRunner.CollectScenarioErrorsAsync();
         }
         
+        public virtual async System.Threading.Tasks.Task FeatureBackgroundAsync()
+        {
+#line 4
+#line hidden
+            global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                        "Name",
+                        "Description",
+                        "Price",
+                        "ProductType"});
+            table1.AddRow(new string[] {
+                        "Monitor",
+                        "HD monitor",
+                        "400",
+                        "MONITOR"});
+            table1.AddRow(new string[] {
+                        "Headphones",
+                        "Noise cancellation",
+                        "300",
+                        "PERIPHARALS"});
+#line 5
+ await testRunner.GivenAsync("I cleanup following data", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
         async System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
         {
             await this.TestInitializeAsync();
@@ -102,7 +126,7 @@ namespace TestProjectBDD.Features
                     "mytag"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Create product and verify the details", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 5
+#line 11
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -112,33 +136,104 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 await this.ScenarioStartAsync();
-#line 6
+#line 4
+await this.FeatureBackgroundAsync();
+#line hidden
+#line 12
 await testRunner.GivenAsync("I click the Product menu", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
 #line hidden
-#line 7
+#line 13
  await testRunner.AndAsync("I click the \"Create\" link", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-                global::Reqnroll.Table table1 = new global::Reqnroll.Table(new string[] {
+                global::Reqnroll.Table table2 = new global::Reqnroll.Table(new string[] {
                             "Name",
                             "Description",
                             "Price",
                             "ProductType"});
-                table1.AddRow(new string[] {
+                table2.AddRow(new string[] {
                             "Headphones",
                             "Noise cancellation",
                             "300",
                             "PERIPHARALS"});
-#line 8
-await testRunner.WhenAsync("I create product with following details", ((string)(null)), table1, "When ");
+#line 14
+await testRunner.WhenAsync("I create product with following details", ((string)(null)), table2, "When ");
 #line hidden
-#line 11
-await testRunner.WhenAsync("I click the details link of the newly created product", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line 17
+await testRunner.WhenAsync("I click the Details link of the newly created product", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
-#line 12
+#line 18
 await testRunner.ThenAsync("I see all the product details are created as expected", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 13
+#line 19
 await testRunner.WhenAsync("I delete product Headphones for cleanup", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [Xunit.SkippableFactAttribute(DisplayName="Edit product and verify the details")]
+        [Xunit.TraitAttribute("FeatureTitle", "Product")]
+        [Xunit.TraitAttribute("Description", "Edit product and verify the details")]
+        [Xunit.TraitAttribute("Category", "mytag")]
+        public async System.Threading.Tasks.Task EditProductAndVerifyTheDetails()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "mytag"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Edit product and verify the details", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 22
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 4
+await this.FeatureBackgroundAsync();
+#line hidden
+                global::Reqnroll.Table table3 = new global::Reqnroll.Table(new string[] {
+                            "Name",
+                            "Description",
+                            "Price",
+                            "ProductType"});
+                table3.AddRow(new string[] {
+                            "Monitor",
+                            "HD monitor",
+                            "400",
+                            "MONITOR"});
+#line 23
+await testRunner.GivenAsync("I ensure the following product is created", ((string)(null)), table3, "Given ");
+#line hidden
+#line 26
+await testRunner.GivenAsync("I click the Product menu", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 27
+await testRunner.WhenAsync("I click the Edit link of the newly created product", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+                global::Reqnroll.Table table4 = new global::Reqnroll.Table(new string[] {
+                            "Name",
+                            "Description",
+                            "Price",
+                            "ProductType"});
+                table4.AddRow(new string[] {
+                            "Monitor",
+                            "HD Resolution monitor",
+                            "500",
+                            "MONITOR"});
+#line 28
+await testRunner.WhenAsync("I Edit the product details with following", ((string)(null)), table4, "When ");
+#line hidden
+#line 31
+await testRunner.WhenAsync("I click the Details link of the newly created product", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 32
+await testRunner.ThenAsync("I see all the product details are created as expected", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+#line hidden
+#line 33
+await testRunner.WhenAsync("I delete product Monitor for cleanup", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

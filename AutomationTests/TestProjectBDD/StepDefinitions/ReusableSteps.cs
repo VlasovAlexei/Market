@@ -21,5 +21,30 @@ namespace TestProjectBDD.StepDefinitions
             productRepository.DeleteProduct(productName);
         }
 
+        [Given("I ensure the following product is created")]
+        public void GivenIEnsureTheFollowingProductIsCreated(DataTable dataTable)
+        {
+            var product = dataTable.CreateInstance<Product>();
+
+            productRepository.AddProduct(product);
+
+            scenarioContext.Set(product);
+        }
+
+        [Given("I cleanup following data")]
+        public void GivenICleanupFollowingData(DataTable dataTable)
+        {
+            var products = dataTable.CreateSet<Product>();
+
+            foreach (var product in products)
+            {
+                var prod = productRepository.GetProductByName(product.Name);
+
+                if (prod != null)
+                {
+                    productRepository.DeleteProduct(product.Name);
+                }
+            }
+        }
     }
 }
