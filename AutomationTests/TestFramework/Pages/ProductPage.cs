@@ -1,4 +1,9 @@
-﻿namespace TestProjectBDD.Pages;
+﻿using OpenQA.Selenium;
+using ProductAPI.Data;
+using TestFramework.Driver;
+using TestFramework.Extensions;
+
+namespace TestFramework.Pages;
 
 public interface IProductPage
 { 

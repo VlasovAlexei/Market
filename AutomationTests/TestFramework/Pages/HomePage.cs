@@ -1,4 +1,8 @@
-﻿namespace TestProjectBDD.Pages;
+﻿using OpenQA.Selenium;
+using TestFramework.Driver;
+using TestFramework.Extensions;
+
+namespace TestFramework.Pages;
 
 public interface IHomePage
 {
