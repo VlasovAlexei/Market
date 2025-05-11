@@ -10,15 +10,13 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
+using Reqnroll;
 namespace TestProjectBDD.Features
 {
-    using Reqnroll;
-    using System;
-    using System.Linq;
     
     
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
-    [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
+    [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public partial class ProductFeature : object, Xunit.IClassFixture<ProductFeature.FixtureData>, Xunit.IAsyncLifetime
     {
         
@@ -26,7 +24,7 @@ namespace TestProjectBDD.Features
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Product", "\tTest the product page functionalities ", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Product", "\tTest the product page functionalities ", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags);
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
@@ -38,32 +36,54 @@ namespace TestProjectBDD.Features
             this._testOutputHelper = testOutputHelper;
         }
         
-        public static async System.Threading.Tasks.Task FeatureSetupAsync()
+        public static async global::System.Threading.Tasks.Task FeatureSetupAsync()
         {
         }
         
-        public static async System.Threading.Tasks.Task FeatureTearDownAsync()
+        public static async global::System.Threading.Tasks.Task FeatureTearDownAsync()
         {
         }
         
-        public async System.Threading.Tasks.Task TestInitializeAsync()
+        public async global::System.Threading.Tasks.Task TestInitializeAsync()
         {
             testRunner = global::Reqnroll.TestRunnerManager.GetTestRunnerForAssembly(featureHint: featureInfo);
-            if (((testRunner.FeatureContext != null) 
-                        && (testRunner.FeatureContext.FeatureInfo.Equals(featureInfo) == false)))
+            try
             {
-                await testRunner.OnFeatureEndAsync();
+                if (((testRunner.FeatureContext != null) 
+                            && (testRunner.FeatureContext.FeatureInfo.Equals(featureInfo) == false)))
+                {
+                    await testRunner.OnFeatureEndAsync();
+                }
             }
-            if ((testRunner.FeatureContext == null))
+            finally
             {
-                await testRunner.OnFeatureStartAsync(featureInfo);
+                if (((testRunner.FeatureContext != null) 
+                            && testRunner.FeatureContext.BeforeFeatureHookFailed))
+                {
+                    throw new global::Reqnroll.ReqnrollException("Scenario skipped because of previous before feature hook error");
+                }
+                if ((testRunner.FeatureContext == null))
+                {
+                    await testRunner.OnFeatureStartAsync(featureInfo);
+                }
             }
         }
         
-        public async System.Threading.Tasks.Task TestTearDownAsync()
+        public async global::System.Threading.Tasks.Task TestTearDownAsync()
         {
-            await testRunner.OnScenarioEndAsync();
-            global::Reqnroll.TestRunnerManager.ReleaseTestRunner(testRunner);
+            if ((testRunner == null))
+            {
+                return;
+            }
+            try
+            {
+                await testRunner.OnScenarioEndAsync();
+            }
+            finally
+            {
+                global::Reqnroll.TestRunnerManager.ReleaseTestRunner(testRunner);
+                testRunner = null;
+            }
         }
         
         public void ScenarioInitialize(global::Reqnroll.ScenarioInfo scenarioInfo)
@@ -72,17 +92,17 @@ namespace TestProjectBDD.Features
             testRunner.ScenarioContext.ScenarioContainer.RegisterInstanceAs<Xunit.Abstractions.ITestOutputHelper>(_testOutputHelper);
         }
         
-        public async System.Threading.Tasks.Task ScenarioStartAsync()
+        public async global::System.Threading.Tasks.Task ScenarioStartAsync()
         {
             await testRunner.OnScenarioStartAsync();
         }
         
-        public async System.Threading.Tasks.Task ScenarioCleanupAsync()
+        public async global::System.Threading.Tasks.Task ScenarioCleanupAsync()
         {
             await testRunner.CollectScenarioErrorsAsync();
         }
         
-        public virtual async System.Threading.Tasks.Task FeatureBackgroundAsync()
+        public virtual async global::System.Threading.Tasks.Task FeatureBackgroundAsync()
         {
 #line 4
 #line hidden
@@ -106,12 +126,27 @@ namespace TestProjectBDD.Features
 #line hidden
         }
         
-        async System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
+        async global::System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
         {
-            await this.TestInitializeAsync();
+            try
+            {
+                await this.TestInitializeAsync();
+            }
+            catch (System.Exception e1)
+            {
+                try
+                {
+                    ((Xunit.IAsyncLifetime)(this)).DisposeAsync();
+                }
+                catch (System.Exception e2)
+                {
+                    throw new System.AggregateException("Test initialization failed", e1, e2);
+                }
+                throw;
+            }
         }
         
-        async System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
+        async global::System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
         {
             await this.TestTearDownAsync();
         }
@@ -120,11 +155,11 @@ namespace TestProjectBDD.Features
         [Xunit.TraitAttribute("FeatureTitle", "Product")]
         [Xunit.TraitAttribute("Description", "Create product and verify the details")]
         [Xunit.TraitAttribute("Category", "mytag")]
-        public async System.Threading.Tasks.Task CreateProductAndVerifyTheDetails()
+        public async global::System.Threading.Tasks.Task CreateProductAndVerifyTheDetails()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Create product and verify the details", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 11
 this.ScenarioInitialize(scenarioInfo);
@@ -175,11 +210,11 @@ await testRunner.WhenAsync("I delete product Headphones for cleanup", ((string)(
         [Xunit.TraitAttribute("FeatureTitle", "Product")]
         [Xunit.TraitAttribute("Description", "Edit product and verify the details")]
         [Xunit.TraitAttribute("Category", "mytag")]
-        public async System.Threading.Tasks.Task EditProductAndVerifyTheDetails()
+        public async global::System.Threading.Tasks.Task EditProductAndVerifyTheDetails()
         {
             string[] tagsOfScenario = new string[] {
                     "mytag"};
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Edit product and verify the details", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 22
 this.ScenarioInitialize(scenarioInfo);
@@ -239,17 +274,17 @@ await testRunner.WhenAsync("I delete product Monitor for cleanup", ((string)(nul
             await this.ScenarioCleanupAsync();
         }
         
-        [System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
-        [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "2.0.0.0")]
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
         public class FixtureData : object, Xunit.IAsyncLifetime
         {
             
-            async System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
+            async global::System.Threading.Tasks.Task Xunit.IAsyncLifetime.InitializeAsync()
             {
                 await ProductFeature.FeatureSetupAsync();
             }
             
-            async System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
+            async global::System.Threading.Tasks.Task Xunit.IAsyncLifetime.DisposeAsync()
             {
                 await ProductFeature.FeatureTearDownAsync();
             }

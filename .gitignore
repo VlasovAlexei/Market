@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Allure - auto-generated test results and reports
+allure-results/
+allure-report/

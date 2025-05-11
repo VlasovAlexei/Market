@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using TestFramework.Driver;
 using TestFramework.Extensions;
-using TestProject.Pages;
+using TestFramework.Pages;
 
 namespace TestProject
 {

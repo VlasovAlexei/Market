@@ -6,7 +6,6 @@ namespace TestProjectBDD.StepDefinitions
     public class ReusableSteps
     {
         private readonly ScenarioContext scenarioContext;
-
         private readonly IProductRepository productRepository;
 
         public ReusableSteps(ScenarioContext scenarioContext, IProductRepository productRepository)
