@@ -365,3 +365,5 @@ FodyWeavers.xsd
 # Allure - auto-generated test results and reports
 allure-results/
 allure-report/
+
+/assets/
