@@ -14,19 +14,6 @@ public class UnitTest1 : IClassFixture<WebApplicationFactory<Program>>
     }
 
     [Fact]
-    public void TestWithHttpClient()
-    {
-        var client = new HttpClient();
-        client.BaseAddress = new Uri("http://localhost:5000/");
-
-        var response = client.Send(new HttpRequestMessage(HttpMethod.Get, "Product/GetProducts"));
-
-        //response.Content.ReadAsStringAsync().Result;
-
-        response.EnsureSuccessStatusCode();
-    }
-
-    [Fact]
     public async Task TestWithWebAppFactory()
     {
         var webClient = webApplicationFactory.CreateClient();

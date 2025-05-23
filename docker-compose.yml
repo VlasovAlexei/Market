@@ -53,6 +53,15 @@ services:
       networks:
         - product_network
 
+  integration_test:
+      image: integration_test
+      container_name: integrationtest
+      build:
+        context: .
+        dockerfile: AutomationTests/IntegrationTests/Dockerfile
+      networks:
+        - product_network
+
   node-docker:
       image: selenium/node-docker:4.1.1-20211217
       volumes:
