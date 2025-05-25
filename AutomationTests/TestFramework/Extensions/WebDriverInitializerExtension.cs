@@ -18,10 +18,12 @@ public static class WebDriverInitializerExtension
 
     private static TestSettings ReadConfig()
     {
+        var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+
         var configFile = File
                         .ReadAllText(Path.GetDirectoryName(
                             Assembly.GetExecutingAssembly().Location)
-                                + "/appsettings.json");
+                                + $"/appsettings.{environmentName}.json");
 
         var jsonSerializeOptions = new JsonSerializerOptions()
         {

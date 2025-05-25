@@ -50,6 +50,8 @@ services:
       depends_on:
         - product_api
         - selenium-hub
+      environment:
+      - ASPNETCORE_ENVIRONMENT=remote
       networks:
         - product_network
 
