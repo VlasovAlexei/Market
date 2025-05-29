@@ -10,6 +10,8 @@ using ProductAPI.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var isTesting = builder.Environment.IsEnvironment("Testing");
+
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -23,7 +25,16 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddDbContext<ProductDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    if (isTesting)
+    {
+        options.UseInMemoryDatabase("InMemoryProductAPI");
+    }
+    else
+    {
+        options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+    }
+});
 
 builder.Services.AddTransient<IProductRepository, ProductRepository>();
 
@@ -37,16 +48,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
-using (var scope = app.Services.CreateScope())
+using var scope = app.Services.CreateScope();
+var dbContext = scope.ServiceProvider.GetRequiredService<ProductDbContext>();
+
+if (isTesting)
 {
-    scope.ServiceProvider.GetRequiredService<ProductDbContext>().Database.Migrate();
+    dbContext.Database.EnsureCreated();
 }
+else
+{
+    dbContext.Database.Migrate();
+}
+
+dbContext.Seed();
 
 app.Run();

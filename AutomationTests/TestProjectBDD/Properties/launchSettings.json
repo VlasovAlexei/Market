@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "TestProjectBDD": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "local"
+      }
+    },
+    "Container (Dockerfile)": {
+      "commandName": "Project"
+    }
+  }
+}
