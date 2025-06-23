@@ -1,8 +1,4 @@
-# Base image with .NET runtime
-FROM mcr.microsoft.com/dotnet/runtime:9.0 AS base
-WORKDIR /app
-
-# Build stage with .NET SDK
+# Stage 1: Build
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 WORKDIR /src
 
@@ -11,26 +7,26 @@ COPY ["AutomationTests/TestProjectBDD/TestProjectBDD.csproj", "AutomationTests/T
 COPY ["AutomationTests/TestFramework/TestFramework.csproj", "AutomationTests/TestFramework/"]
 COPY ["App/ProductAPI/ProductAPI.csproj", "App/ProductAPI/"]
 
-# Restore dependencies
+# Restore
 RUN dotnet restore "AutomationTests/TestProjectBDD/TestProjectBDD.csproj"
 
-# Copy the entire source
+# Copy all source
 COPY . .
 
-# Build the project
+# Build
 WORKDIR "/src/AutomationTests/TestProjectBDD"
 RUN dotnet build "TestProjectBDD.csproj" -c Release -o /app/build
 
-# Final stage
+# Stage 2: Test execution image
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS test
 WORKDIR /src/AutomationTests/TestProjectBDD
 
-# Copy source code for test execution context
+# Copy source tree
 COPY --from=build /src /src
 
-# Copy script and set permissions
-COPY scripts/WaitAndRun.sh ./WaitAndRun.sh
-RUN chmod +x ./WaitAndRun.sh
+# Copy script and set execute permission
+COPY scripts/WaitAndRun.sh /scripts/WaitAndRun.sh
+RUN chmod +x /scripts/WaitAndRun.sh
 
-# Set entry point
-ENTRYPOINT ["./WaitAndRun.sh"]
+# Set entrypoint
+ENTRYPOINT ["/scripts/WaitAndRun.sh"]
