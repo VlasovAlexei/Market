@@ -22,15 +22,15 @@ WORKDIR "/src/AutomationTests/TestProjectBDD"
 RUN dotnet build "TestProjectBDD.csproj" -c Release -o /app/build
 
 # Final stage
-FROM build AS TestProjectBDD
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS test
+WORKDIR /src/AutomationTests/TestProjectBDD
 
-# Copy built output
-COPY --from=build /app/build .
+# Copy source code for test execution context
+COPY --from=build /src /src
 
 # Copy script and set permissions
-COPY scripts/WaitAndRun.sh /scripts/WaitAndRun.sh
-RUN chmod +x /scripts/WaitAndRun.sh
+COPY scripts/WaitAndRun.sh ./WaitAndRun.sh
+RUN chmod +x ./WaitAndRun.sh
 
 # Set entry point
-ENTRYPOINT ["/scripts/WaitAndRun.sh"]
+ENTRYPOINT ["./WaitAndRun.sh"]
