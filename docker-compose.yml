@@ -41,34 +41,38 @@ services:
       - product_network
 
   test_project:
-      image: test_project
-      container_name: testproject
-      build:
-        context: .
-        dockerfile: AutomationTests/TestProjectBDD/Dockerfile
-      restart: on-failure
-      depends_on:
-        - product_api
-        - selenium-hub
-      environment:
+    image: test_project
+    container_name: testproject
+    build:
+      context: .
+      dockerfile: AutomationTests/TestProjectBDD/Dockerfile
+    restart: on-failure
+    depends_on:
+      product_api:
+        condition: service_healthy
+      selenium-hub:
+        condition: service_started
+    environment:
       - ASPNETCORE_ENVIRONMENT=remote
-      networks:
-        - product_network
+    working_dir: /src/AutomationTests/TestProjectBDD
+    networks:
+      - product_network
 
   integration_test:
-      image: integration_test
-      container_name: integrationtest
-      build:
-        context: .
-        dockerfile: AutomationTests/IntegrationTests/Dockerfile
-      networks:
-        - product_network
+    image: integration_test
+    container_name: integrationtest
+    build:
+      context: .
+      dockerfile: AutomationTests/IntegrationTests/Dockerfile
+    networks:
+      - product_network
 
   chrome:
     image: selenium/node-chrome:4.19.1-20240402
     shm_size: 2gb
     depends_on:
-      - selenium-hub
+      selenium-hub:
+        condition: service_started
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -80,7 +84,8 @@ services:
     image: selenium/node-firefox:4.19.1-20240402
     shm_size: 2gb
     depends_on:
-      - selenium-hub
+      selenium-hub:
+        condition: service_started
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -93,7 +98,8 @@ services:
     volumes:
       - /tmp/videos:/videos
     depends_on:
-      - chrome
+      chrome:
+        condition: service_started
     environment:
       - DISPLAY_CONTAINER_NAME=chrome
       - FILE_NAME=chrome_video.mp4
@@ -105,7 +111,8 @@ services:
     volumes:
       - /tmp/videos:/videos
     depends_on:
-      - firefox
+      firefox:
+        condition: service_started
     environment:
       - DISPLAY_CONTAINER_NAME=firefox
       - FILE_NAME=firefox_video.mp4
@@ -116,9 +123,9 @@ services:
     image: selenium/hub:4.19.1-20240402
     container_name: selenium-hub
     ports:
-      - "4432:4442"
-      - "4433:4443"
-      - "4434:4444"
+      - "4442:4442"
+      - "4443:4443"
+      - "4444:4444"
     networks:
       - product_network
 
