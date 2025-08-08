@@ -15,7 +15,7 @@ docker-compose -p "$project" up -d product_api webapp db selenium-hub firefox ch
 
 docker-compose -p "$project" up --no-deps test_project
 
-exit_code=$(docker inspect test_project --format='{{.State.ExitCode}}')
+exit_code=$(docker inspect testproject --format='{{.State.ExitCode}}')
 
 if [ $exit_code -eq 0 ]; then
     exit $exit_code
