@@ -2,10 +2,11 @@
 set -e
 set -x
 
-echo "Waiting for Selenium Grid..."
-until curl -sf http://selenium-hub:4444/wd/hub/status | grep -q '"ready": true'; do
-  sleep 5
+# Wait Selenium Grid with healthcheck
+until curl -s http://selenium-hub:4444/wd/hub/status | grep '"ready": true' > /dev/null; do
+    echo "Ожидаем готовность Selenium Grid..."
+    sleep 2
 done
 
-echo "Selenium is ready. Starting tests..."
-dotnet test TestProjectBDD.csproj --logger "console;verbosity=detailed"
+# Run tests
+dotnet test /src/AutomationTests/TestProjectBDD/TestProjectBDD.csproj --logger "console;verbosity=detailed"
