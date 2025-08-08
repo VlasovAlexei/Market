@@ -1,4 +1,5 @@
 version: '3.4'
+
 services:
   product_api:
     image: product_api
@@ -6,9 +7,9 @@ services:
     build:
       context: .
       dockerfile: App/ProductAPI/Dockerfile
-    restart: on-failure      
+    restart: on-failure
     ports:
-      - 5000:8001
+      - "5000:8001"
     depends_on:
       - db
     networks:
@@ -20,12 +21,12 @@ services:
     build:
       context: .
       dockerfile: App/WebApp/Dockerfile
-    restart: on-failure      
+    restart: on-failure
     ports:
-      - 5001:8000
-    depends_on: 
+      - "5001:8000"
+    depends_on:
       - product_api
-    networks: 
+    networks:
       - product_network
 
   db:
@@ -48,13 +49,12 @@ services:
       dockerfile: AutomationTests/TestProjectBDD/Dockerfile
     restart: on-failure
     depends_on:
-      product_api:
-        condition: service_healthy
       selenium-hub:
+        condition: service_healthy
+      product_api:
         condition: service_started
     environment:
       - ASPNETCORE_ENVIRONMENT=remote
-    working_dir: /src/AutomationTests/TestProjectBDD
     networks:
       - product_network
 
@@ -71,8 +71,7 @@ services:
     image: selenium/node-chrome:4.19.1-20240402
     shm_size: 2gb
     depends_on:
-      selenium-hub:
-        condition: service_started
+      - selenium-hub
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -84,8 +83,7 @@ services:
     image: selenium/node-firefox:4.19.1-20240402
     shm_size: 2gb
     depends_on:
-      selenium-hub:
-        condition: service_started
+      - selenium-hub
     environment:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
@@ -98,8 +96,7 @@ services:
     volumes:
       - /tmp/videos:/videos
     depends_on:
-      chrome:
-        condition: service_started
+      - chrome
     environment:
       - DISPLAY_CONTAINER_NAME=chrome
       - FILE_NAME=chrome_video.mp4
@@ -111,28 +108,27 @@ services:
     volumes:
       - /tmp/videos:/videos
     depends_on:
-      firefox:
-        condition: service_started
+      - firefox
     environment:
       - DISPLAY_CONTAINER_NAME=firefox
       - FILE_NAME=firefox_video.mp4
     networks:
       - product_network
 
-    selenium-hub:
+  selenium-hub:
     image: selenium/hub:4.19.1-20240402
     container_name: selenium-hub
     ports:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
-    healthcheck:
-      test: ["CMD", "curl", "-s", "http://localhost:4444/wd/hub/status", "|", "grep", "\"ready\": true"]
-      interval: 5s
-      timeout: 3s
-      retries: 20
     networks:
       - product_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4444/wd/hub/status || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
 
 networks:
   product_network:
