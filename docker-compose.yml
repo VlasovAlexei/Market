@@ -119,13 +119,18 @@ services:
     networks:
       - product_network
 
-  selenium-hub:
+    selenium-hub:
     image: selenium/hub:4.19.1-20240402
     container_name: selenium-hub
     ports:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
+    healthcheck:
+      test: ["CMD", "curl", "-s", "http://localhost:4444/wd/hub/status", "|", "grep", "\"ready\": true"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
     networks:
       - product_network
 
